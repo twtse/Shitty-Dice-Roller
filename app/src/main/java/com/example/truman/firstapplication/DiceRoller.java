@@ -2,13 +2,16 @@ package com.example.truman.firstapplication;
 
 import java.security.InvalidParameterException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DiceRoller {
+    public static Logger logger = Logger.getLogger("com.example.truman.firstapplication");
 
     public static DiceRollerResults roll(String inputString){
         int nDice=0, nSides=0;
 
-        String temp="0";
+        String temp="";
         boolean d=false;
 
                 /*Parses through input and saves numbers before 'd' as nDice
@@ -17,16 +20,19 @@ public class DiceRoller {
 
             //Checks for 'd' input. Saves prior input as nDice
             if(inputString.charAt(i)=='d'){
+                if(d){
+                    // Ensure that "d" doesn't occur more than once in the input string
+                    throw new InvalidParameterException("Invalid input!\n (#ofDice)d(#ofSides)");
+                }
                 d=true;
-                i++;
                 nDice=Integer.parseInt(temp);
-                temp="0";
+                temp="";
+                continue;
             }
 
             //Checks for invalid input, breaks loop and sends error to user
             else if(!Character.isDigit(inputString.charAt(i))){
-                d=false;
-                break;
+                throw new InvalidParameterException("Invalid input!\n (#ofDice)d(#ofSides)");
             }
 
             //Stores latest number in string temp

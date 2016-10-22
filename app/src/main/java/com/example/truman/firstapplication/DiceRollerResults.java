@@ -4,6 +4,9 @@ public class DiceRollerResults{
     private int[] rolls;
     private int rollTotal;
 
+    private final int hitThreshhold = 5;
+    private final int glitchThreshhold = 1;
+
     public DiceRollerResults(int[] rolls){
         this.rolls = rolls;
     }
@@ -35,6 +38,28 @@ public class DiceRollerResults{
         output += "]";
 
         return output;
+    }
+
+    public int getHits(){
+        int hits = 0;
+        for(int roll : rolls){
+            if(roll >= hitThreshhold){
+                hits++;
+            }
+        }
+
+        return hits;
+    }
+
+    public int getGlitches(){
+        int glitches = 0;
+        for(int roll : rolls){
+            if(roll <= glitchThreshhold){
+                glitches++;
+            }
+        }
+
+        return glitches;
     }
 
     public static int addResults(DiceRollerResults r1, DiceRollerResults r2){
