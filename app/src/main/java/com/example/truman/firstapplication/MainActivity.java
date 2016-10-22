@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.security.InvalidParameterException;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,72 +48,18 @@ public class MainActivity extends AppCompatActivity {
         diceRoll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+            try{
 
-                int nDice=0, nSides=0;
+                DiceRollerResults results = DiceRoller.roll(diceInput.getText().toString());
 
-                //Turns input into a string
-                String input= diceInput.getText().toString();
+                diceOutput.setText(String.valueOf(results.getTotal()));
+                diceResult.setText(results.getRolls());
 
-                String temp="0";
-                boolean d=false;
-
-                /*Parses through input and saves numbers before 'd' as nDice
-                saves numbers after 'd' as nSides*/
-                for(int i=0;i<input.length(); i++){
-
-                    //Checks for 'd' input. Saves prior input as nDice
-                    if(input.charAt(i)=='d'){
-                        d=true;
-                        i++;
-                        nDice=Integer.parseInt(temp);
-                        temp="0";
-                    }
-
-                    //Checks for invalid input, breaks loop and sends error to user
-                    else if(!Character.isDigit(input.charAt(i))){
-                        d=false;
-                        break;
-                    }
-
-                    //Stores latest number in string temp
-                    temp+=input.charAt(i);
-                }
-
-                //Sends eror to user upon invalid input
-                if(!d){
-                    diceOutput.setText("Invalid input!\n (#ofDice)d(#ofSides)");
-                }
-
-
-                else{
-
-                    //Saves digits after 'd' as nSides
-                    nSides=Integer.parseInt(temp);
-
-
-                    Random random=new Random();
-
-                    int[] results=new int[nDice];
-                    int total=0;
-                    int roll;
-                    String diceHistory="[";
-                    //Generates random numbers, saves results in array and sums total
-                    for(int i=0; i<nDice;i++){
-                        roll=random.nextInt(nSides)+1;
-                        results[i]=roll;
-                        diceHistory+=(roll+", ");
-                        total+=results[i];
-                    }
-
-                    // Remove the last comma and following space from the dice history
-                    diceHistory = diceHistory.substring(0, diceHistory.length() - 2);
-
-                    diceHistory+=("]");
-                    //Output the total
-                    diceOutput.setText(String.valueOf(total));
-                    diceResult.setText(diceHistory);
-
-                }
+            }
+            catch(InvalidParameterException ex){
+                diceOutput.setText(ex.getMessage());
+                diceResult.setText("");
+            }
             }
 
         });
