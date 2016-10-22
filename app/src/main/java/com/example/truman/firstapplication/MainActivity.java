@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,20 +35,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        */
 
+        //Defines TextViews and EditTexts
         final TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
+        final TextView diceResult=(TextView) findViewById(R.id.diceResultTextView);
         final EditText diceInput=(EditText) findViewById(R.id.diceInputEditText);
 
+        //Defines the ROLL button
         Button diceRoll=(Button) findViewById(R.id.diceRollButton);
         diceRoll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+
                 int nDice=0, nSides=0;
+
+                //Turns input into a string
                 String input= diceInput.getText().toString();
+
                 String temp="0";
                 boolean d=false;
+
+                /*Parses through input and saves numbers before 'd' as nDice
+                saves numbers after 'd' as nSides*/
                 for(int i=0;i<input.length(); i++){
 
+                    //Checks for 'd' input. Saves prior input as nDice
                     if(input.charAt(i)=='d'){
                         d=true;
                         i++;
@@ -55,26 +68,46 @@ public class MainActivity extends AppCompatActivity {
                         temp="0";
                     }
 
+                    //Checks for invalid input, breaks loop and sends error to user
+                    else if(!Character.isDigit(input.charAt(i))){
+                        d=false;
+                        break;
+                    }
+
+                    //Stores latest number in string temp
                     temp+=input.charAt(i);
                 }
-                nSides=Integer.parseInt(temp);
+
+                //Sends eror to user upon invalid input
                 if(!d){
                     diceOutput.setText("Invalid input!\n (#ofDice)d(#ofSides)");
                 }
+
+
                 else{
+
+                    //Saves digits after 'd' as nSides
+                    nSides=Integer.parseInt(temp);
+
 
                     Random random=new Random();
 
                     int[] results=new int[nDice];
                     int total=0;
-
+                    int roll;
+                    String diceHistory="[";
+                    //Generates random numbers, saves results in array and sums total
                     for(int i=0; i<nDice;i++){
-                        results[i]=random.nextInt(nSides)+1;
+                        roll=random.nextInt(nSides)+1;
+                        results[i]=roll;
+                        diceHistory+=(roll+", ");
                         total+=results[i];
 
                     }
+                    diceHistory+=("]");
+                    //Output the total
                     diceOutput.setText(String.valueOf(total));
-
+                    diceResult.setText(diceHistory);
 
                 }
             }
