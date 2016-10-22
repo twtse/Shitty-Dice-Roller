@@ -102,8 +102,11 @@ public class MainActivity extends AppCompatActivity {
                         results[i]=roll;
                         diceHistory+=(roll+", ");
                         total+=results[i];
-
                     }
+
+                    // Remove the last comma and following space from the dice history
+                    diceHistory = diceHistory.substring(0, diceHistory.length() - 2);
+
                     diceHistory+=("]");
                     //Output the total
                     diceOutput.setText(String.valueOf(total));
