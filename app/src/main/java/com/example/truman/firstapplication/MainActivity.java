@@ -64,6 +64,107 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        //Defines numerical buttons
+        Button button1=(Button) findViewById(R.id.button1);
+        Button button2=(Button) findViewById(R.id.button2);
+        Button button3=(Button) findViewById(R.id.button3);
+        Button button4=(Button) findViewById(R.id.button4);
+        Button button5=(Button) findViewById(R.id.button5);
+        Button button6=(Button) findViewById(R.id.button6);
+        Button button7=(Button) findViewById(R.id.button7);
+        Button button8=(Button) findViewById(R.id.button8);
+        Button button9=(Button) findViewById(R.id.button9);
+        Button button0=(Button) findViewById(R.id.button0);
+        Button buttonD=(Button) findViewById(R.id.buttonD);
+        Button buttonDelete=(Button) findViewById(R.id.buttonDelete);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput=diceInput.getText().toString();
+                diceInput.setText(currInput+=1);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 2);
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 3);
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 4);
+            }
+        });
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 5);
+            }
+        });
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 6);
+            }
+        });
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 7);
+            }
+        });
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 8);
+            }
+        });
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 9);
+            }
+        });
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 0);
+            }
+        });
+        buttonD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                diceInput.setText(currInput += 'd');
+            }
+        });
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String currInput = diceInput.getText().toString();
+                if(currInput.length()!=0&&currInput!=null){
+                    diceInput.setText(currInput.substring(0,currInput.length()-1));
+                }
+            }
+        });
+
     }
 
     @Override
