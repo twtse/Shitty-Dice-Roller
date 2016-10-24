@@ -6,8 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DiceRoller {
-    public static Logger logger = Logger.getLogger("com.example.truman.firstapplication");
-
     public static DiceRollerResults roll(String inputString){
         int nDice=0, nSides=0;
 
@@ -20,7 +18,7 @@ public class DiceRoller {
 
             //Checks for 'd' input. Saves prior input as nDice
             if(inputString.charAt(i)=='d'){
-                if(d){
+                if(d || i == inputString.length() - 1 || temp == "0" || temp == ""){
                     // Ensure that "d" doesn't occur more than once in the input string
                     throw new InvalidParameterException("Invalid input!\n (#ofDice)d(#ofSides)");
                 }
