@@ -17,5 +17,13 @@ public class Settings extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        final Button ShadowrunButton=(Button) findViewById(R.id.ShadowrunButton);
+        ShadowrunButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShadowrunButton.setText("ON");
+            }
+        });
     }
 }

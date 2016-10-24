@@ -27,17 +27,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
-        */
 
         //Defines TextViews and EditTexts
         final TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
@@ -46,6 +35,22 @@ public class MainActivity extends AppCompatActivity {
 
         //Defines the ROLL button
         Button diceRoll=(Button) findViewById(R.id.diceRollButton);
+
+        final Button ShadowrunButton=(Button) findViewById(R.id.ShadowrunButton);
+
+        ShadowrunButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ShadowrunButton.getText().toString().equals("OFF")) {
+                    ShadowrunButton.setText("ON");
+                }
+                else{
+                    ShadowrunButton.setText("OFF");
+                }
+
+            }
+        });
+
         diceRoll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -53,8 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
                 DiceRollerResults results = DiceRoller.roll(diceInput.getText().toString());
 
-                diceOutput.setText(String.valueOf(results.getTotal()));
-                diceResult.setText(results.getRolls());
+                if(ShadowrunButton.getText().toString().equals("ON")){
+                    String temp = String.valueOf(results.getHits());
+                    temp+= " Hits";
+                    if(results.isGlitch()){
+                        temp+= "(GLITCH)";
+                    }
+                    diceOutput.setText(temp);
+                    diceResult.setText(results.getRolls());
+                }
+                else{
+                    diceOutput.setText(String.valueOf(results.getTotal()));
+                    diceResult.setText(results.getRolls());
+                }
 
             }
             catch(InvalidParameterException ex){

@@ -195,4 +195,15 @@
         android:layout_alignStart="@+id/button9"
         android:id="@+id/buttonDelete"
         android:textSize="24sp" />
+
+    <Button
+        android:text="OFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonDelete"
+        android:layout_alignStart="@+id/buttonDelete"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:id="@+id/ShadowrunButton" />
 </RelativeLayout>

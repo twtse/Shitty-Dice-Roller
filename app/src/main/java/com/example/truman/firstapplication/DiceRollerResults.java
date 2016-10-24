@@ -51,7 +51,7 @@ public class DiceRollerResults{
         return hits;
     }
 
-    public int getGlitches(){
+    public int getFailures(){
         int glitches = 0;
         for(int roll : rolls){
             if(roll <= glitchThreshhold){
@@ -60,6 +60,14 @@ public class DiceRollerResults{
         }
 
         return glitches;
+    }
+
+    public boolean isGlitch(){
+        int glitches =getFailures();
+        if(glitches>=((rolls.length/2)+rolls.length%2)){
+            return true;
+        }
+        return false;
     }
 
     public static int addResults(DiceRollerResults r1, DiceRollerResults r2){
