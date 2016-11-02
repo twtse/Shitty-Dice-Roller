@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="Settings"
+            android:name=".SettingsActivity"
             android:label="Settings">
         </activity>
     </application>

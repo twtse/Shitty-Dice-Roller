@@ -2,8 +2,6 @@ package com.example.truman.firstapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,11 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.security.InvalidParameterException;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button diceRoll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +23,14 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final Settings settings = new Settings();
+        boolean success = settings.initialize();
 
         //Defines TextViews and EditTexts
         final TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
+        if(!success){
+            diceOutput.setText("Error loading settings");
+        }
         final TextView diceResult=(TextView) findViewById(R.id.diceResultTextView);
         final EditText diceInput=(EditText) findViewById(R.id.diceInputEditText);
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
                 DiceRollerResults results = DiceRoller.roll(diceInput.getText().toString());
 
-                if(ShadowrunButton.getText().toString().equals("ON")){
+                if(settings.get("dicePool")){
                     String temp = String.valueOf(results.getHits());
                     temp+= " Hits";
                     if(results.isGlitch()){
@@ -201,8 +202,8 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
-            diceOutput.setText("*Settings Open*");
-            startActivity(new Intent(MainActivity.this, Settings.class));
+            diceOutput.setText("*SettingsActivity Open*");
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         }
 
