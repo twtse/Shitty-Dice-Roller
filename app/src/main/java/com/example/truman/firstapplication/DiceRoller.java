@@ -43,15 +43,13 @@ public class DiceRoller {
                 throw new InvalidParameterException("Invalid input!\n (#ofDice)d(#ofSides)");
             }
         }
-
+        //Saves digits after 'd' as nSides
+        nSides=Integer.parseInt(temp);
         //Sends eror to user upon invalid input
-        if(!d){
+        if(!d||nSides==0){
             throw new InvalidParameterException("Invalid input!\n (#ofDice)d(#ofSides)");
         }
         else{
-            //Saves digits after 'd' as nSides
-            nSides=Integer.parseInt(temp);
-
             Random random=new Random();
 
             int[] results=new int[nDice];

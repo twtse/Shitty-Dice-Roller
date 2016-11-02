@@ -33,8 +33,9 @@ public class DiceRollerResults{
         }
 
         // Remove the last comma and following space from the dice history
-        output = output.substring(0, output.length() - 2);
-
+        if(output.length()>2) {
+            output = output.substring(0, output.length() - 2);
+        }
         output += "]";
 
         return output;
