@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         final Settings settings = new Settings();
-        boolean success = settings.initialize();
+        final boolean success = settings.initialize();
 
         //Defines TextViews and EditTexts
         final TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
@@ -58,7 +58,13 @@ public class MainActivity extends AppCompatActivity {
             try{
 
                 DiceRollerResults results = DiceRoller.roll(diceInput.getText().toString());
-
+                boolean dicePool;
+                if(success){
+                    dicePool=settings.get("dicePool");
+                }
+                else{
+                    dicePool=ShadowrunButton.getText().toString().equals("ON");
+                }
                 if(settings.get("dicePool")){
                     String temp = String.valueOf(results.getHits());
                     temp+= " Hits";
