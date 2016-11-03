@@ -1,6 +1,8 @@
 package com.example.truman.firstapplication;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +23,7 @@ import java.util.Properties;
 
 public class SettingsActivity extends AppCompatActivity {
 
-
+    String dicePool= "dicePool";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -29,11 +31,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        final Settings settings=new Settings();
-        final boolean success = settings.initialize();
+        final SharedPreferences settings = getSharedPreferences
+                ("com.example.TabletopCompanion.settings",0);
+
+        final SharedPreferences.Editor editor = getSharedPreferences
+                ("com.example.TabletopCompanion.settings",0).edit();
 
         final Button ShadowrunButton=(Button) findViewById(R.id.ShadowrunButton);
-        if(settings.get("dicePool")){
+        if(settings.getBoolean(dicePool, false)){
             ShadowrunButton.setText("ON");
         }
         else{
@@ -42,15 +47,18 @@ public class SettingsActivity extends AppCompatActivity {
         ShadowrunButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(success) {
-
-                    if (settings.get("dicePool")) {
-                        ShadowrunButton.setText("OFF");
-                        settings.setOff("dicePool");
-                    } else {
-                        ShadowrunButton.setText("ON");
-                        settings.setOn("dicePool");
-                    }
+                System.out.println(settings.getBoolean(dicePool,false));
+                if (settings.getBoolean(dicePool,false)) {
+                    System.out.println("Turning Off");
+                    editor.putBoolean(dicePool, false);
+                    editor.commit();
+                    ShadowrunButton.setText("OFF");
+                }
+                else{
+                    System.out.println("Turning On");
+                    editor.putBoolean(dicePool, true);
+                    editor.commit();
+                    ShadowrunButton.setText("ON");
                 }
             }
         });

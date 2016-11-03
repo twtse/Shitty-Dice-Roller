@@ -1,6 +1,7 @@
 package com.example.truman.firstapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,49 +24,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Settings settings = new Settings();
-        final boolean success = settings.initialize();
+        final SharedPreferences settings = getSharedPreferences
+                ("com.example.TabletopCompanion.settings",0);
+        SharedPreferences.Editor editor = settings.edit();
 
         //Defines TextViews and EditTexts
         final TextView diceOutput=(TextView) findViewById(R.id.diceOutputTextView);
-        if(!success){
-            diceOutput.setText("Error loading settings");
-        }
         final TextView diceResult=(TextView) findViewById(R.id.diceResultTextView);
         final EditText diceInput=(EditText) findViewById(R.id.diceInputEditText);
 
         //Defines the ROLL button
         Button diceRoll=(Button) findViewById(R.id.diceRollButton);
-
-        final Button ShadowrunButton=(Button) findViewById(R.id.ShadowrunButton);
-
-        ShadowrunButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(ShadowrunButton.getText().toString().equals("OFF")) {
-                    ShadowrunButton.setText("ON");
-                }
-                else{
-                    ShadowrunButton.setText("OFF");
-                }
-
-            }
-        });
-
         diceRoll.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
             try{
 
                 DiceRollerResults results = DiceRoller.roll(diceInput.getText().toString());
-                boolean dicePool;
-                if(success){
-                    dicePool=settings.get("dicePool");
-                }
-                else{
-                    dicePool=ShadowrunButton.getText().toString().equals("ON");
-                }
-                if(settings.get("dicePool")){
+
+                if(settings.getBoolean("dicePool",false)){
                     String temp = String.valueOf(results.getHits());
                     temp+= " Hits";
                     if(results.isGlitch()){

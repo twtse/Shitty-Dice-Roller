@@ -41,6 +41,8 @@ public class Settings {
         }
 
         catch (IOException io){
+            System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println(io.getMessage());
             return false;
         }
         return true;
